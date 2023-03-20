@@ -1,0 +1,33 @@
+{ "demo": { "model_file": "model.pkl",
+            "dataset_map": {
+              "tran_df": {
+                "dataset_source": "file",
+                "file_name": "transactions.csv"
+                },
+              "cust_df": {
+                "dataset_source": "file",
+                "file_name": "customers.csv"
+                }
+            },
+            "features": {
+              "cust_id": {
+                "feature_source": "api",
+                "feature_table_name": "",
+                "feature_logic_func": "",
+                "feature_api_field": "api_cust_id"
+              },
+              "cust_age": {
+                "feature_source": "logic",
+                "feature_table_name": "",
+                "feature_logic_func": "feature_func_age",
+                "feature_func_inputs": ["cust_id"]
+              },
+              "r_rate": {
+                "feature_source": "logic",
+                "feature_table_name": "",
+                "feature_logic_func": "feature_func_r_rate",
+                "feature_func_inputs": ["cust_id"]
+              }
+            }
+         }
+}
