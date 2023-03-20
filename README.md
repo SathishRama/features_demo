@@ -1,4 +1,4 @@
-# features_demo
+# features_demo [ WORK IN PROGRESS, JUST STARTED WORKING ON THIS]
 
 This is a demo repo to illustrate how we can use the training feature pipelines in model serving code to compute features automatically without rewriting the code during model implementation. This is very basic demo and I intend to enhance it more as time permits. 
 
