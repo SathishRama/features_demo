@@ -1,4 +1,4 @@
-# features_demo [ WORK IN PROGRESS, JUST STARTED WORKING ON THIS]
+# features_demo 
 
 This is a demo repo to illustrate how we can use the training feature pipelines in model serving code to compute features automatically without rewriting the code during model implementation. This is very basic demo and I intend to enhance it more as time permits. 
 
@@ -11,11 +11,57 @@ In this demo example, I have a model that uses 3 features.
 
 A basic xgboost classifier model is trained to predict probability of return for a new sale by a customer using previous customer sales & returns. 
 
-I use a feature_mapping.json which defines the features metadata :
+I use a feature_mapping.json which defines the features metadata:
+
   1.Customer id feature is passed from the upstream invoking the model ( from api call )
   2.Customer Age is caculated using the Customer Id from a func 
   3.Customer Return Rate is calcuated using a function from transactions data and customer id
   
   feature_mapping.json tells which features are to be taken from upstream and which features needs to be computed using functions from feature pipeline code.
   
-  
+## Demo2
+### Feature Engineering - Model Development Stage
+Pre-Computed Features :   
+Age, Income, Education, Number of bills, Number of bills paid in full
+```mermaid
+graph TD;
+      Historical_Data -->Pre_Computed_Features;
+      Pre_Computed_Features --> Model;
+```  
+  ### Feature Engineering - Inferencing Setup
+Real Time Features :   
+Age, Income, Education,
+```mermaid
+graph TD;
+      API_Data -->Real_Time_Features;
+      Real_Time_Features --> Look_Up ;
+      Pre_Computed_Features --> Look_Up;
+      Pre_Computed_Features -->Final_Features;
+      Final_Features --> Model;
+      Model --> Risk_Classification;
+
+      
+```
+  ### Detailed Data Feature Processing  
+Using Age, Income & Education lookup the pre-computed features
+```mermaid
+graph TD;
+      API_data --> age;
+      API_data --> income;
+      API_data --> education;
+      education --> Categorical_Encoding;
+      age_history --> historical_data;
+      income_history --> historical_data;
+      education_history --> historical_data;
+      historical_data --> Pre_Computed_Features;
+      Pre_Computed_Features --> num_bills;
+      Pre_Computed_Features -->num_paid_full;
+      num_bills --> Model;
+      num_paid_full --> Model;
+      Categorical_Encoding --> Model;
+      age --> Model;
+      income --> Model;
+      Model --> Risk_Classification
+     
+     
+```
