@@ -14,7 +14,7 @@ except:
     data_dir = '../data/train_data/demo2'
 
 # load datasets for the environment
-payments_df = pd.read_csv(data_dir + '/card_payments.csv')
+payments_df = pd.read_csv(data_dir + '/raw/card_payments.csv')
 
 payments_summary_df = pd.DataFrame()
 payments_summary_df = payments_df

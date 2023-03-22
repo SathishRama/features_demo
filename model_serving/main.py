@@ -3,6 +3,7 @@ import pandas as pd
 import json,pickle
 import os
 from feature_pipelines.demo1_features import  feature_func_r_rate, feature_func_age
+from feature_pipelines.demo2_features import feature_age_group, feature_cat_encoding, feature_income_group
 
 app = Flask(__name__)
 os.environ['my_env'] = 'Serving'
@@ -10,8 +11,8 @@ os.environ['my_env'] = 'Serving'
 def get_model_metadata(model):
     model_metadata_file = open('../metadata/feature_mapping.json')
     model_metadata = json.load(model_metadata_file)
-    print(model_metadata['demo'])
-    return model_metadata['demo']
+    print(model_metadata[model])
+    return model_metadata[model]
 
 
 def get_features(features,api_data):
@@ -19,8 +20,23 @@ def get_features(features,api_data):
     for feature_name in features:
         feature_source = features[feature_name]['feature_source']
         if feature_source == 'api':
-            feature_list[feature_name] = int(api_data[features[feature_name]['feature_api_field']])
-
+            feature_list[feature_name] = api_data[features[feature_name]['feature_api_field']]
+            print("from api section:",feature_list[feature_name])
+            # adding code to apply logic on api field
+            if features[feature_name]['categorical_feature'] == "True":
+                feature_cat_func = features[feature_name]['categorial_logic_func']
+                feature_list[feature_name] = globals()[feature_cat_func](*[feature_name,feature_list[feature_name]])
+                print(f"Cat Encoding for {feature_name} ", feature_list[feature_name])
+            if features[feature_name]['feature_logic_func'] != "":
+                feature_func = features[feature_name]['feature_logic_func']
+                func_inputs = features[feature_name]['feature_func_inputs']
+                print(func_inputs)
+                print(feature_list)
+                func_inputs_values = []
+                func_inputs_values.append(feature_list[feature_name])
+                print(f"Calling func {feature_func} with values :", *func_inputs_values)
+                feature_list[feature_name] = globals()[feature_func](*func_inputs_values)
+                print('Feature Details:', feature_list)
         elif feature_source == 'logic':
             #call the function to calculate feature
             try:
@@ -29,8 +45,7 @@ def get_features(features,api_data):
                 func_inputs_values = []
                 for input in func_inputs:
                     func_inputs_values.append(feature_list[input])
-                print("Calling func {feature_func} with values :",*func_inputs_values)
-
+                print(f"Calling func {feature_func} with values :",*func_inputs_values)
                 feature_list[feature_name] = globals()[feature_func](*func_inputs_values)
                 print('Feature Details:', feature_list )
 
@@ -45,7 +60,8 @@ def read_request():
     try:
         api_data = request.get_json()
         #cust_id = train_data['cust_id']
-        model_metadata = get_model_metadata('demo')
+        model_to_run = api_data['model']
+        model_metadata = get_model_metadata(model_to_run)
 
         # load model using pickle
         model_name = model_metadata['model_file']

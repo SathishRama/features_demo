@@ -12,8 +12,8 @@ except:
 
 
 #load datasets for the environment
-cust_df =  pd.read_csv(data_dir+'/customers.csv')
-tran_df =  pd.read_csv(data_dir+'/transactions.csv')
+cust_df =  pd.read_csv(data_dir+'/demo1/customers.csv')
+tran_df =  pd.read_csv(data_dir+'/demo1/transactions.csv')
 
 #Function to compute feature : return rate of customer
 #Used both in Training Pipeline and Servig pipeline

@@ -1,4 +1,4 @@
-{ "demo": { "model_file": "model.pkl",
+{ "demo1": { "model_file": "model.pkl",
             "dataset_map": {
               "tran_df": {
                 "dataset_source": "file",
@@ -14,6 +14,7 @@
                 "feature_source": "api",
                 "feature_table_name": "",
                 "feature_logic_func": "",
+                "categorical_feature": "False",
                 "feature_api_field": "api_cust_id"
               },
               "cust_age": {
@@ -29,5 +30,32 @@
                 "feature_func_inputs": ["cust_id"]
               }
             }
-         }
+         },
+  "demo2": { "model_file": "demo2_model.pkl",
+            "features": {
+              "education": {
+                "feature_source": "api",
+                "feature_table_name": "",
+                "feature_logic_func": "",
+                "feature_api_field": "education",
+                "categorical_feature": "True",
+                "categorial_logic_func": "feature_cat_encoding"
+              },
+              "age_group": {
+                "feature_source": "api",
+                "feature_api_field": "age",
+                "categorical_feature": "False",
+                "feature_logic_func": "feature_age_group",
+                "feature_func_inputs": "age"
+              },
+              "income_group": {
+                "feature_source": "api",
+                "feature_api_field": "income",
+                "categorical_feature": "False",
+                "feature_logic_func": "feature_income_group",
+                "feature_func_inputs": "income"
+              }
+
+              }
+            }
 }

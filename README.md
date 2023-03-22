@@ -4,7 +4,8 @@ This is a demo repo to illustrate how we can use the training feature pipelines 
 
 The thought here is, when we develop the model, we create feature pipelines,using a set of frameworks & standards, suhc that the computational logic can be re-used in serving code. We would need the Training and Serving environments Data to be same for this to be productive. In absence of that, we may need to create additional dataset loader framework that helps in abstracting the evnviroment nuances for the feature function logic ( more to come later on this )
 
-In this demo example, I have a model that uses 3 features. 
+## Demo1
+I have a model that uses 3 features. 
   1.Customer ID
   2.Customer Age
   3.Customer Transactions Return Rate ( # of returns ) 
@@ -59,8 +60,10 @@ graph TD;
       num_bills --> Model;
       num_paid_full --> Model;
       Categorical_Encoding --> Model;
-      age --> Model;
-      income --> Model;
+      age --> age_group_lookup;
+      age_group_lookup --> Model;
+      income --> income_group_lookup;
+      income_group_lookup --> Model
       Model --> Risk_Classification
      
      
