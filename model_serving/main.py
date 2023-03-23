@@ -2,11 +2,13 @@ from flask import Flask,request,jsonify
 import pandas as pd
 import json,pickle
 import os
-from feature_pipelines.demo1_features import  feature_func_r_rate, feature_func_age
-from feature_pipelines.demo2_features import feature_age_group, feature_cat_encoding, feature_income_group
+os.environ['my_env'] = 'Serving'
+# Later - consider using importlib for dynamic module loading
+from feature_pipelines.demo2 import demo2_features
+from feature_pipelines.demo2.demo2_features import *
 
 app = Flask(__name__)
-os.environ['my_env'] = 'Serving'
+
 
 def get_model_metadata(model):
     model_metadata_file = open('../metadata/feature_mapping.json')

@@ -1,16 +1,17 @@
 import pandas as pd
 import os
-os.environ['my_env'] = 'Training'
+#os.environ['my_env'] = 'Training'
 from _datetime import datetime
 #get the environment : Training vs Serving
+print(__name__ , os.environ['my_env'])
 try:
     env = os.environ['my_env']
     if env == 'Training':
-        data_dir = '../data/train_data/demo2'
+        data_dir = '../../data/train_data/demo2'
     if env == 'Serving':
         data_dir = '../data/serving_data/demo2'
 except:
-    data_dir = '../data/train_data/demo2'
+    data_dir = '../../data/train_data/demo2'
 
 # load datasets for the environment
 cust_df = pd.read_csv(data_dir + '/raw/customers_v2.csv')
@@ -75,7 +76,7 @@ def feature_age_group(age):
     return age_group
 
 def feature_income_group(income):
-    print('from func age group:',income)
+    print('from func income group:',income)
     income = int(income)
     income_group = 0
     if income in range(0,10000):
@@ -92,6 +93,22 @@ def feature_income_group(income):
         income_group = 6
     return income_group
 
+#Created for serving lane to look up precomupted features
+if os.environ['my_env'] == 'Serving':
+   final_features_df = pd.read_csv(data_dir + '/final/final_features.csv')
+def feature_num_bills_lookup(education,age_group,income_group):
+    print('From feature num bills lookup :',education,age_group,income_group)
+    num_bills = final_features_df[final_features_df['education'] == education
+                                  and final_features_df['age_group'] == age_group
+                                  and final_features_df['income_group'] == income_group]
+    print('num bills :', num_bills)
+    return num_bills
+
+# def feature_num_paid_full():
+#     pass
+#     return
+
+# This is for training lane only
 def compute_features_training():
     raw_cust_features_df = cust_df[['education', 'age', 'hh_income']]
     computed_features_df = pd.DataFrame()

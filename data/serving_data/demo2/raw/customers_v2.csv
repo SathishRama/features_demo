@@ -1,0 +1,21 @@
+cust_id,sex,education,marriage,age,joined_date,customer_name,hh_income
+1,M,Bachelor's,Married,24,1/1/2020,John,30000
+2,F,High School,Single,19,2/2/2020,Jane,12000
+3,M,Masters,Divorced,30,3/3/2020,Adam,40000
+4,F,High School,Single,17,4/4/2020,Emily,12000
+5,M,Associate's,Married,27,5/5/2020,Jacob,60000
+6,F,Bachelor's,Single,20,6/6/2020,Olivia,24000
+7,M,High School,Married,55,7/7/2020,Michael,100000
+8,F,Associate's,Single,23,8/8/2020,Sophia,80000
+9,M,Bachelor's,Divorced,32,9/9/2020,Daniel,150000
+10,F,Bachelor's,Married,39,10/10/2020,Ava,101000
+11,M,High School,Single,21,11/11/2020,William,36000
+12,F,Masters,Single,23,12/12/2020,Isabella,32000
+13,M,Associate's,Married,26,1/13/2020,Alexander,78000
+14,F,High School,Single,18,2/14/2020,Mia,10000
+15,M,Masters,Divorced,33,3/15/2020,Matthew,90000
+16,F,High School,Single,17,4/16/2020,Charlotte,14000
+17,M,Associate's,Married,29,5/17/2020,Liam,65000
+18,F,Bachelor's,Single,19,6/18/2020,Amelia,24000
+19,M,High School,Married,43,7/19/2020,Noah,200000
+20,F,Associate's,Single,24,8/20/2020,Abigail,60000

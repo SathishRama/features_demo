@@ -54,6 +54,13 @@
                 "categorical_feature": "False",
                 "feature_logic_func": "feature_income_group",
                 "feature_func_inputs": "income"
+              },
+              "num_bills": {
+                "feature_source": "logic",
+                "feature_api_field": "",
+                "categorical_feature": "False",
+                "feature_logic_func": "feature_num_bills_lookup",
+                "feature_func_inputs": ["education","age_group","income_group"]
               }
 
               }

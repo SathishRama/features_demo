@@ -86,3 +86,16 @@ graph TD;
      
      
 ```
+## Things to figure out
+1. Best way to dynamically load modules  
+   Python : consider importlib
+   Java : TBD
+2. Data Modelling : Since we need Feature names to be same or know thier names
+to define the relationship, what point in SDLC should we do data modelling  
+   1. May be at late stage during Model Development
+3. How do we handle different languages used between Training Vs Serving  
+   Python/Pandas/Pyspark for Training vs Java for Serving
+4. Best way to define DRML  
+   1. Should we consider a UI based tool to define this (or)
+   2. JSON or Yamle type Markup language
+   
